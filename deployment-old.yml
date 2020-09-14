@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stories-django-mini
+  labels:
+    app: stories-django-mini
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stories-django-mini
+  template:
+    metadata:
+      labels:
+        app: stories-django-mini
+    spec:
+      containers:
+        - name: stories-django-image
+          imagePullPolicy: Never
+          image: stories-django-image
+          command: ["./manage.py", "runserver", "0.0.0.0:8080"]
+          ports:
+            - containerPort: 8080
